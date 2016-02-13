@@ -1,0 +1,32 @@
+{
+  "name": "gather-site",
+  "version": "0.1.0",
+  "description": "个人垂直采集器",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha --recursive --timeout 10000 --require chai --harmony --bail test"
+  },
+  "author": {
+    "name": "SHANG殇",
+    "email": "xinshangshangxin@gmail.com",
+    "url": "http://blog.xinshangshangxin.com"
+  },
+  "license": "MIT",
+  "engines": {
+    "node": ">=4.0.0"
+  },
+  "dependencies": {
+    "bluebird": "^3.3.0",
+    "cheerio": "^0.20.0",
+    "iconv-lite": "^0.4.13",
+    "request": "^2.69.0"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "gulp": "^3.9.1",
+    "gulp-jshint": "^2.0.0",
+    "gulp-load-plugins": "^1.2.0",
+    "jshint": "^2.9.1",
+    "jshint-stylish": "^2.1.0"
+  }
+}
