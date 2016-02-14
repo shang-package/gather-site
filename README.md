@@ -1,29 +1,35 @@
 # myGather
 
+[![npm version](https://badge.fury.io/js/gather-site.svg)](https://badge.fury.io/js/gather-site)
+
 ## 站点规则
 ```js
 {
   url: {
     isNeed: 1,
     type: 'String',
+    optionalValue: null,
     description: 'a full url'
   },
   encoding: {
     isNeed: 0,
     type: 'any',
+    defaultValue: 'utf8',
     optionalValue: [undefined, null, 'utf8', 'gbk'],
     description: '采集后进行的编码转换, 默认会检测gbk并转换'
   },
   mode: {
-    isNeed: 1,
+    isNeed: 0,
     type: 'String',
-    optionalValue: ['css', 'RegExp', 'json'],
-    description: '采集内容进行解析, 对css进行类JQ 转换, 对RegExp直接返回文本, 对json则进行JSON.parse'
+    defaultValue: 'json',
+    optionalValue: ['css', 'text', 'json'],
+    description: '采集内容进行解析, 对css进行类JQ 转换, 对text直接返回文本, 对json则进行JSON.parse'
   },
   extract_rules: [{
     name: {
       isNeed: 1,
       type: 'String',
+      optionalValue: null,
       description: '对执行 expression 函数后返回的结果封装成数组(即非数组会成为长度为1的数组)进行缓存, 以供下面的规则进行使用'
     },
     expression: {

@@ -12,6 +12,10 @@
     "url": "http://blog.xinshangshangxin.com"
   },
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://git.coding.net/xinshangshangxin/gather-site.git"
+  },
   "engines": {
     "node": ">=4.0.0"
   },
