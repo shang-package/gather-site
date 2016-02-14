@@ -22,7 +22,6 @@ describe('gater siteInfo', function() {
 
       gather(siteInfo, {proxy: true})
         .then(function(data) {
-          console.log(data);
           should.exist(data);
           data.ipList.length.should.be.above(3);
         })

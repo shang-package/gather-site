@@ -62,4 +62,23 @@ describe('New Spider With Error siteInfo', function() {
         });
     });
   });
+
+  describe('When call parse with no extract_rules', function() {
+    it('should have data', function(done) {
+      spider = new Spider(siteInfos[2]);
+      spider
+        .download()
+        .then(function() {
+          return spider.parse();
+        })
+        .then(function(data) {
+          should.exist(data);
+          should.exist(data.length);
+        })
+        .catch(function(e) {
+          should.not.exist(e);
+        })
+        .finally(done);
+    });
+  });
 });

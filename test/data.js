@@ -38,6 +38,8 @@ var siteInfos = [{
       return cache[0];
     }
   }]
+}, {
+  url: 'http://proxy.coding.io/api/v1/proxy?type=nn&perPage=3'
 }];
 
 
