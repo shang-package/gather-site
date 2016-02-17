@@ -32,3 +32,6 @@ module.exports = function(siteInfo, config) {
       return spider.parse();
     });
 };
+
+module.exports.Proxy = Proxy;
+module.exports.Spider = Spider;
