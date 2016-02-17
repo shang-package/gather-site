@@ -83,5 +83,31 @@ gather(siteInfo, config)
   });
 ```
 
+## gather.Proxy
+
+```js
+{
+	urls: [                              // 从网站获取 proxy
+    null,					                    // null 表示不使用代理
+    'full_url get a json proxy list'  // 一个url, 返回内容为 [{url: 'proxy_url'}]
+  ],
+  time: 60 * 1000,										// 设置[默认]url 轮询更新 间隔
+  tryRange: [0, 2],                  // typeProxies中选择获取proxy的范围
+  typeProxies: [										 // 显示设置 代理链接,  使用此规则后 urls 不起作用
+  	[{url: 'proxy_url_1'}, {url: 'proxy_url_2'}],
+  	[{url: 'proxy_url_another_1'}]
+  ]
+}
+```
+
+```js
+var gather = require('gather-site');
+var proxy = new gather.Proxy();
+proxy.init();  // 使用默认的 代理设置
+
+proxy.getOne(nu); // 随机获取 typeProxies[nu] 中一条
+proxy.tryRange    // 从typeProxies的返回
+```
+
 ## 许可证
 ### MIT
