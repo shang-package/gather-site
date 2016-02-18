@@ -83,9 +83,10 @@ gather(siteInfo, config)
   });
 ```
 
-## gather.Proxy
+## gather.proxyPool.getProxy(proxyConfig)
 
 ```js
+// proxyConfig
 {
 	urls: [                              // 从网站获取 proxy
     null,					                    // null 表示不使用代理
@@ -98,15 +99,11 @@ gather(siteInfo, config)
   	[{url: 'proxy_url_another_1'}]
   ]
 }
-```
 
-```js
-var gather = require('gather-site');
-var proxy = new gather.Proxy();
-proxy.init();  // 使用默认的 代理设置
-
-proxy.getOne(nu); // 随机获取 typeProxies[nu] 中一条
-proxy.tryRange    // 从typeProxies的返回
+// var proxy = gather.proxyPool.getProxy() // 返回一个无代理的proxy
+// var proxy = gather.proxyPool.getProxy({}) // 返回一个默认代理的proxy
+// proxy.getOne(nu); // 随机获取 typeProxies[nu] 中一条
+// proxy.tryRange    // 从typeProxies的返回的范围
 ```
 
 ## 许可证
