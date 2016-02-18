@@ -3,28 +3,25 @@
 var Promise = require('bluebird');
 
 var Spider = require('./lib/spider.js');
-var Proxy = require('./lib/proxy.js');
-
+var proxyPool = require('./lib/proxyPool.js');
 
 module.exports = function(siteInfo, config) {
-  if(!siteInfo) {
-    throw new Error('缺少siteInfo');
-  }
-  var proxy = new Proxy();
+  config = config || {};
   var spider;
 
   return Promise
     .resolve()
     .then(function() {
-      if(siteInfo.proxy || config.proxy) {
-        return proxy.init(siteInfo.proxy || config.proxy);
+      if(!siteInfo) {
+        return Promise.reject('缺少siteInfo');
       }
-      return null;
+      var proxyConfig = siteInfo.proxy || config.proxy;
+      return proxyPool.getProxy(proxyConfig)
     })
-    .then(function() {
+    .then(function(proxy) {
       spider = new Spider(siteInfo, proxy);
       if(!spider.checkRule()) {
-        throw new Error('invalid arguments');
+        return Promise.reject('siteInfo 参数非法');
       }
       return spider.download();
     })
@@ -33,5 +30,4 @@ module.exports = function(siteInfo, config) {
     });
 };
 
-module.exports.Proxy = Proxy;
-module.exports.Spider = Spider;
+module.exports.proxyPool = proxyPool;
