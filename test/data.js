@@ -2,7 +2,7 @@
 
 var siteInfos = [{
   url: 'http://www.xicidaili.com/nn',
-  encoding: null,
+  encoding: 'gbk',
   noCheck: false,
   mode: 'css',
   extract_rules: [{
@@ -40,10 +40,25 @@ var siteInfos = [{
   }]
 }, {
   url: 'http://proxy.coding.io/api/v1/proxy?type=nn&perPage=3'
+}, {
+  url: '',
+  mode: 'RegExp',
+  extract_rules: [{
+    expression: function($) {
+      return $.match(/test/g);
+    }
+  }]
 }];
 
 
-var proxyInfos = [{}];
+var proxyInfos = [{
+  urls: [
+    null,
+    'http://proxy.coding.io/api/v1/proxy?type=nn&perPage=3',
+    'http://proxy.coding.io/api/v1/proxy?type=nt&perPage=3'
+  ],
+  tryRange: [-1, 9]
+}];
 
 module.exports = {
   siteInfos: siteInfos,

@@ -48,4 +48,13 @@ describe('new Proxy', function() {
       done();
     });
   });
+
+
+  describe('When call getName', function() {
+    it('should have have name', function(done) {
+      should.equal(new Proxy().getName(), '0|0|http://proxy.coding.io/api/v1/proxy?type=nn&perPage=3|http://proxy.coding.io/api/v1/proxy?type=nt&perPage=360000');
+      done();
+    });
+  });
+
 });

@@ -26,6 +26,13 @@ describe('New Spider With Error siteInfo', function() {
     })
   });
 
+  describe('When call checkRule witeh siteInfo', function() {
+    it('should be false', function(done) {
+      (new Spider(siteInfos[3]).checkRule()).should.be.false;
+      done();
+    });
+  });
+
   describe('When call download', function() {
     it('should throw err', function(done) {
       spider
@@ -69,6 +76,7 @@ describe('New Spider With Error siteInfo', function() {
       spider
         .download()
         .then(function() {
+          spider.checkRule().should.be.true;
           return spider.parse();
         })
         .then(function(data) {
