@@ -1,9 +1,25 @@
 'use strict';
 
-var siteInfos = [{
+var retryStrategy = require('../lib/retryStrategy.js');
+
+var proxyConfigs = [{
+  urls: [
+    'http://proxy.coding.io/api/v1/proxy?type=nn&perPage=3',
+    'http://proxy.coding.io/api/v1/proxy?type=nt&perPage=3'
+  ]
+}];
+
+var requestConfigs = [{
+  url: 'http://proxy.coding.io/api/v1/proxy?type=nn&perPage=3',
+  json: true,
+  retryStrategy: retryStrategy.HTTPOrNetworkError,
+  proxy: null
+}, {
   url: 'http://www.xicidaili.com/nn',
-  encoding: 'gbk',
-  noCheck: false,
+  encoding: 'gbk'
+}];
+
+var parseConfigs = [{
   mode: 'css',
   extract_rules: [{
     name: 'ipList',
@@ -25,7 +41,6 @@ var siteInfos = [{
     }
   }]
 }, {
-  url: '',
   mode: 'RegExp',
   extract_rules: [{
     name: 'allTests',
@@ -35,32 +50,23 @@ var siteInfos = [{
   }, {
     name: 'test0',
     expression: function($, cache) {
-      return cache[0];
+      return cache['allTests'][0];
     }
   }]
 }, {
-  url: 'http://proxy.coding.io/api/v1/proxy?type=nn&perPage=3'
-}, {
-  url: '',
   mode: 'RegExp',
   extract_rules: [{
     expression: function($) {
       return $.match(/test/g);
     }
   }]
+}, {
+  mode: 'RegExp'
 }];
 
-
-var proxyInfos = [{
-  urls: [
-    null,
-    'http://proxy.coding.io/api/v1/proxy?type=nn&perPage=3',
-    'http://proxy.coding.io/api/v1/proxy?type=nt&perPage=3'
-  ],
-  tryRange: [-1, 9]
-}];
 
 module.exports = {
-  siteInfos: siteInfos,
-  proxyInfos: proxyInfos
+  requestConfigs: requestConfigs,
+  parseConfigs: parseConfigs,
+  proxyConfigs: proxyConfigs
 };

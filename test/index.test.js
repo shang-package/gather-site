@@ -1,13 +1,11 @@
 'use strict';
 
-var chai = require('chai');
+var should = require('should');
 
-var siteInfos = require('./data.js').siteInfos;
+var data = require('./data.js');
 var gather = require('../index.js');
 
-var should = chai.should();
-
-describe('gater siteInfo', function() {
+describe('index.js', function() {
   before(function(done) {
     done();
   });
@@ -16,51 +14,39 @@ describe('gater siteInfo', function() {
     done();
   });
 
-  describe('When call gather', function() {
-    it('should have some data', function(done) {
-      var siteInfo = siteInfos[0];
-
-      gather(siteInfo, {proxy: true})
+  describe('When call gather with correct config', function() {
+    it('should have some data', function() {
+      return gather(data.requestConfigs[1], data.parseConfigs[0])
         .then(function(data) {
           should.exist(data);
-          data.ipList.length.should.be.above(3);
-        })
-        .catch(function(e) {
-          console.log(e && e.stack || e);
-          should.not.exist(e);
-        })
-        .finally(done);
+          data.ipList.length.should.be.above(0);
+        });
     })
   });
 
 
-  describe('When call gather with no siteInfo', function() {
-    it('should have some data', function(done) {
-
-      gather()
-        .catch(function(e) {
-          should.exist(e);
-        })
-        .finally(done);
+  describe('When call gather with no requestConfigs', function() {
+    it('should have some data', function() {
+      return gather().should.be.rejectedWith(/参数非法/);
     })
   });
 
-  describe('When call gather with error siteInfo', function() {
-    it('should have some data', function(done) {
+  describe('When call gather with json', function() {
+    it('should have some data', function() {
 
-      gather(siteInfos[1])
-        .catch(function(e) {
-          should.exist(e);
-        })
-        .finally(done);
+      return gather(data.requestConfigs[0])
+        .then(function(data) {
+          data.length.should.above(0);
+        });
     })
   });
 
   describe('When call gather proxyPool', function() {
-    it('should success execute', function(done) {
-      gather
+    it('should success execute', function() {
+
+      return gather
         .proxyPool
-        .getProxy({})
+        .getProxy()
         .then(function(proxy) {
           should.exist(proxy.updateTimer);
           proxy.updateTimer.should.have.property('_idleTimeout', 60000);
@@ -69,8 +55,7 @@ describe('gater siteInfo', function() {
 
           proxy.setUpdateInterval();
           proxy.updateTimer.should.have.property('_idleTimeout', 60000);
-          done()
-        })
+        });
     })
   });
 });

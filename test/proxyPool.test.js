@@ -1,12 +1,10 @@
 'use strict';
 
-var chai = require('chai');
 var Promise = require('bluebird');
+var should = require('should');
 
-var proxyInfos = require('./data.js').proxyInfos;
+var proxyConfigs = require('./data.js').proxyConfigs;
 var proxyPool = require('../lib/proxyPool.js');
-
-var should = chai.should();
 
 describe('proxyPool get proxy', function() {
   before(function(done) {
@@ -18,39 +16,38 @@ describe('proxyPool get proxy', function() {
   });
 
   describe('When call getProxy', function() {
-    it('should have a proxy', function(done) {
-      proxyPool
-        .getProxy(proxyInfos[0])
+    it('should have a proxy', function() {
+      return proxyPool
+        .getProxy()
         .then(function(proxy) {
-          should.exist(proxy.urls);
+          proxy.urls.length.should.equal(3);
           proxy.typeProxies.length.should.equal(3);
-        })
-        .catch(function(e) {
-          should.not.exist(e);
-        })
-        .finally(function() {
-          done();
         });
-    })
+    });
+  });
+
+  describe('When call getProxy with config=false', function() {
+    it('should have a proxy with no proxy', function() {
+      return proxyPool
+        .getProxy(false)
+        .then(function(proxy) {
+          proxy.noProxy.should.equal(true);
+          should.equal(proxy.getOne(), null);
+        });
+    });
   });
 
   describe('When call getProxy with same config', function() {
-    it('should have a same proxy', function(done) {
-      Promise
+    it('should have a same proxy', function() {
+      return Promise
         .all([
           proxyPool
-            .getProxy(proxyInfos[0]),
+            .getProxy(proxyConfigs[0]),
           proxyPool
-            .getProxy(proxyInfos[0])
+            .getProxy(proxyConfigs[0])
         ])
         .then(function(proxys) {
           should.equal(proxys[0], proxys[1]);
-        })
-        .catch(function(e) {
-          should.not.exist(e);
-        })
-        .finally(function() {
-          done();
         });
     })
   });
