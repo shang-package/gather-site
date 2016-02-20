@@ -1,6 +1,6 @@
 {
   "name": "gather-site",
-  "version": "0.2.1",
+  "version": "0.3.1",
   "description": "个人垂直采集器",
   "main": "index.js",
   "scripts": {
@@ -26,13 +26,13 @@
     "request": "^2.69.0"
   },
   "devDependencies": {
-    "chai": "^3.5.0",
     "gulp": "^3.9.1",
     "gulp-jshint": "^2.0.0",
     "gulp-load-plugins": "^1.2.0",
     "istanbul": "^0.4.2",
     "jshint": "^2.9.1",
     "jshint-stylish": "^2.1.0",
-    "mocha": "^2.4.5"
+    "mocha": "^2.4.5",
+    "should": "^8.2.2"
   }
 }

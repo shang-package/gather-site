@@ -8,14 +8,14 @@ push:
 test:
 	@ if [ -n "$(g)" ]; \
 	then \
-		echo 'mocha --recursive --timeout 10000 --require chai --harmony --bail -g $(g) test'; \
-		$(mocha) --recursive --timeout 10000 --require chai --harmony --bail -g $(g) test; \
+		echo 'mocha --recursive --timeout 10000 --harmony --bail -g $(g) test'; \
+		$(mocha) --recursive --timeout 10000 --harmony --bail -g $(g) test; \
 	else \
-		echo 'mocha --recursive --timeout 10000 --require chai --harmony --bail test'; \
-		$(mocha) --recursive --timeout 10000 --require chai --harmony --bail test; \
+		echo 'mocha --recursive --timeout 10000 --harmony --bail test'; \
+		$(mocha) --recursive --timeout 10000 --harmony --bail test; \
 	fi
 test-cov:
 	rm -rf coverage
-	$(istanbul) cover $(_mocha) -- --recursive --timeout 10000 --require chai --harmony --bail test
+	$(istanbul) cover $(_mocha) -- --recursive --timeout 10000 --harmony --bail test
 check-cov: 
 	istanbul check-coverage --statements 100 --branches 100 --functions 100 --lines 100
