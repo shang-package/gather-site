@@ -1,6 +1,6 @@
 {
   "name": "gather-site",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "description": "个人垂直采集器",
   "main": "index.js",
   "scripts": {
