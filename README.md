@@ -50,18 +50,19 @@
 ## 代理规则(proxyConfig)
 ```js
 proxyConfig === false // 不设置代理
-proxyConfig === undefined || proxyConfig === null; // 默认代理, 尝试代理路径为: 1, 无代理  2, 国内匿名代理 3, 国内透明代理 4, 抛出失败
+proxyConfig === undefined || proxyConfig === null; // 默认无代理, 失败后再次请求, 最后抛出失败
 
 // proxyConfig
 {
   urls: [                              // 从网站获取 proxy
     null,                             // null 表示不使用代理
-    'full_url get a json proxy list'  // 一个url, 返回内容为 [{url: 'proxy_url'}]
+    'full url get a json proxy list'  // 一个url, 返回内容为 [{url: 'proxy_url_1'}, {url: 'proxy_url_2'}]
   ],
   time: 60 * 1000,                    // 设置[默认]url 轮询更新 间隔
   tryRange: [0, 2],                  // typeProxies中选择获取proxy的范围
   typeProxies: [                     // 显示设置 代理链接,  使用此规则后 urls 不起作用
-    [{url: 'proxy_url_1'}, {url: 'proxy_url_2'}],
+    [{url: null}],                   // 无代理
+    [{url: 'proxy_url_1'}, {url: 'proxy_url_2'}], // 随机选择 proxy_url_1 或者 proxy_url_2
     [{url: 'proxy_url_another_1'}]
   ]
 }
