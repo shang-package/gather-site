@@ -25,12 +25,6 @@ describe('index.js', function() {
   });
 
 
-  describe('When call gather with no requestConfigs', function() {
-    it('should have some data', function() {
-      return gather().should.be.rejectedWith(/参数非法/);
-    })
-  });
-
   describe('When call gather with json', function() {
     it('should have some data', function() {
 
@@ -58,4 +52,20 @@ describe('index.js', function() {
         });
     })
   });
+
+  describe('When call defaults', function() {
+    it('should success have defaults config', function() {
+      var myGather = gather.defaults({
+        url: 'http://proxy.xinshangshangxin.com/api/v1/proxy?type=nn&perPage=3',
+        json: true
+      });
+
+      return myGather()
+        .then(function(data) {
+          should.exist(data);
+          data.length.should.above(0);
+        });
+    })
+  });
+
 });

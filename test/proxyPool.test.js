@@ -20,8 +20,8 @@ describe('proxyPool get proxy', function() {
       return proxyPool
         .getProxy()
         .then(function(proxy) {
-          proxy.urls.length.should.equal(3);
-          proxy.typeProxies.length.should.equal(3);
+          proxy.urls.length.should.equal(2);
+          proxy.typeProxies.length.should.equal(2);
         });
     });
   });

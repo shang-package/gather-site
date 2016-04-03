@@ -4,13 +4,13 @@ var retryStrategy = require('../lib/retryStrategy.js');
 
 var proxyConfigs = [{
   urls: [
-    'http://proxy.coding.io/api/v1/proxy?type=nn&perPage=3',
-    'http://proxy.coding.io/api/v1/proxy?type=nt&perPage=3'
+    'http://proxy.xinshangshangxin.com/api/v1/proxy?type=nn&perPage=3',
+    'http://proxy.xinshangshangxin.com/api/v1/proxy?type=nt&perPage=3'
   ]
 }];
 
 var requestConfigs = [{
-  url: 'http://proxy.coding.io/api/v1/proxy?type=nn&perPage=3',
+  url: 'http://proxy.xinshangshangxin.com/api/v1/proxy?type=nn&perPage=3',
   json: true,
   retryStrategy: retryStrategy.HTTPOrNetworkError,
   proxy: null
