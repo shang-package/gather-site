@@ -2,7 +2,7 @@
 
 istanbul = ./node_modules/.bin/istanbul
 mocha =  ./node_modules/.bin/mocha
-_mocha= ./node_modules/.bin/_mocha
+_mocha= ./node_modules/mocha/bin/_mocha
 push:
 	git push origin master
 test:
@@ -16,6 +16,6 @@ test:
 	fi
 test-cov:
 	rm -rf coverage
-	$(istanbul) cover $(_mocha) -- --recursive --timeout 10000 --harmony --bail test
+	istanbul cover $(_mocha) -- --recursive --timeout 10000 --harmony --bail test
 check-cov: 
 	istanbul check-coverage --statements 100 --branches 100 --functions 100 --lines 100

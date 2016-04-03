@@ -1,6 +1,6 @@
 {
   "name": "gather-site",
-  "version": "0.3.2",
+  "version": "0.3.3",
   "description": "个人垂直采集器",
   "main": "index.js",
   "scripts": {
@@ -22,6 +22,7 @@
   "dependencies": {
     "bluebird": "^3.3.0",
     "cheerio": "^0.20.0",
+    "extend": "^3.0.0",
     "iconv-lite": "^0.4.13",
     "request": "^2.69.0"
   },

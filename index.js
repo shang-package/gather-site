@@ -1,13 +1,13 @@
 'use strict';
 
+var extend = require('extend');
 var Promise = require('bluebird');
 
 var Spider = require('./lib/spider.js');
 var proxyPool = require('./lib/proxyPool.js');
 var retryStrategy = require('./lib/retryStrategy.js');
 
-
-module.exports = function(requestConfig, parseConfig, proxyConfig) {
+function gather(requestConfig, parseConfig, proxyConfig) {
   var spider;
 
   return proxyPool
@@ -22,7 +22,24 @@ module.exports = function(requestConfig, parseConfig, proxyConfig) {
     .then(function() {
       return spider.parse();
     });
-};
+}
 
+module.exports = gather;
 module.exports.proxyPool = proxyPool;
 module.exports.retryStrategy = retryStrategy;
+
+// 设置默认
+module.exports.defaults = function(defaultRequestConfig, defaultParseConfig, defaultProxyConfig) {
+  // jar need request.defaults
+  var myRequest = Spider.request.defaults(defaultRequestConfig);
+
+  return function(requestConfig, parseConfig, proxyConfig) {
+    requestConfig = extend({}, defaultRequestConfig, requestConfig);
+    requestConfig.request = myRequest;
+
+    parseConfig = extend(undefined, defaultParseConfig, parseConfig);
+    proxyConfig = extend(undefined, defaultProxyConfig, proxyConfig);
+    
+    return gather(requestConfig, parseConfig, proxyConfig);
+  };
+};
