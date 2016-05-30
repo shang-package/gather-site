@@ -10,6 +10,13 @@
 // 和 request 相同config, 但是不支持 pipe 等函数
 // headers['User-Agent'] 会自动设置
 // followRedirect 默认为false
+
+// 额外参数：
+{
+  encodingCheck: '是否检测gbk并转换',
+  retryDelay: '当proxyConfig!==false时， 存在重试间隔, 默认为0',
+  retryStrategy: '当proxyConfig!==false时， 存在重试机制, 默认为retryStrategy.all，也可以自定义函数，参数为request的返回结果中的(err, response)'
+}
 ```
 
 ## 解析规则(parseConfig)
@@ -54,34 +61,27 @@ proxyConfig === undefined || proxyConfig === null; // 默认无代理, 失败后
 
 // proxyConfig
 {
-  urls: [                              // 从网站获取 proxy
-    null,                             // null 表示不使用代理
+  // urls表示从一个网站网站获取proxy列表
+  urls: [
     'full url get a json proxy list'  // 一个url, 返回内容为 [{url: 'proxy_url_1'}, {url: 'proxy_url_2'}]
   ],
-  time: 60 * 1000,                    // 设置[默认]url 轮询更新 间隔
-  tryRange: [0, 2],                  // typeProxies中选择获取proxy的范围
-  typeProxies: [                     // 显示设置 代理链接,  使用此规则后 urls 不起作用
-    [{url: null}],                   // 无代理
-    [{url: 'proxy_url_1'}, {url: 'proxy_url_2'}], // 随机选择 proxy_url_1 或者 proxy_url_2
-    [{url: 'proxy_url_another_1'}]
-  ]
+  time: 5 * 60 * 1000              // urls 轮询更新 间隔
 }
 ```
 
 ## gather.proxyPool.getProxy(proxyConfig, noPromise)
 
 ```js
-var proxy = gather.proxyPool.getProxy(false, true) // 返回一个无代理的proxy
-// noPromise === true时, 无法保证已经从 远程拿到 代理列表
+var proxy = gather.proxyPool.getProxy(false) // 返回一个无代理的proxy
+
 
 gather.proxyPool
-  .getProxy()
+  .getProxy(proxyConfig)
   .then(function(proxy){
-    // 返回一个默认代理的proxy
-  });
+    // 返回一个proxyConfig的proxy
 
-proxy.getOne(nu); // 随机获取 typeProxies[nu] 中一条
-proxy.tryRange    // 从typeProxies的返回的范围
+    proxy.get(index); // 获取index位置的proxyUrl
+  });
 ```
 
 ## 例子

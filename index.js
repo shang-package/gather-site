@@ -34,12 +34,11 @@ module.exports.defaults = function(defaultRequestConfig, defaultParseConfig, def
   var myRequest = Spider.request.defaults(defaultRequestConfig);
 
   return function(requestConfig, parseConfig, proxyConfig) {
-    requestConfig = extend({}, defaultRequestConfig, requestConfig);
-    requestConfig.request = myRequest;
 
+    requestConfig = extend(undefined, defaultRequestConfig, requestConfig);
     parseConfig = extend(undefined, defaultParseConfig, parseConfig);
     proxyConfig = extend(undefined, defaultProxyConfig, proxyConfig);
     
-    return gather(requestConfig, parseConfig, proxyConfig);
+    return gather(requestConfig, parseConfig, proxyConfig, myRequest);
   };
 };
