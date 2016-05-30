@@ -3,10 +3,7 @@
 var retryStrategy = require('../lib/retryStrategy.js');
 
 var proxyConfigs = [{
-  urls: [
-    'http://proxy.xinshangshangxin.com/api/v1/proxy?type=nn&perPage=3',
-    'http://proxy.xinshangshangxin.com/api/v1/proxy?type=nt&perPage=3'
-  ]
+  urls: ['http://proxy.xinshangshangxin.com/api/v1/combine']
 }];
 
 var requestConfigs = [{

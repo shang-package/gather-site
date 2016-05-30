@@ -15,39 +15,18 @@ describe('proxyPool get proxy', function() {
     done();
   });
 
-  describe('When call getProxy', function() {
-    it('should have a proxy', function() {
-      return proxyPool
-        .getProxy()
-        .then(function(proxy) {
-          proxy.urls.length.should.equal(2);
-          proxy.typeProxies.length.should.equal(2);
-        });
-    });
-  });
-
-  describe('When call getProxy with config=false', function() {
-    it('should have a proxy with no proxy', function() {
-      return proxyPool
-        .getProxy(false)
-        .then(function(proxy) {
-          proxy.noProxy.should.equal(true);
-          should.equal(proxy.getOne(), null);
-        });
-    });
-  });
-
   describe('When call getProxy with same config', function() {
     it('should have a same proxy', function() {
       return Promise
         .all([
-          proxyPool
-            .getProxy(proxyConfigs[0]),
-          proxyPool
-            .getProxy(proxyConfigs[0])
+          proxyPool.getProxy(proxyConfigs[0]),
+          proxyPool.getProxy(proxyConfigs[0])
         ])
-        .then(function(proxys) {
-          should.equal(proxys[0], proxys[1]);
+        .then(function(proxies) {
+          should.equal(proxies[0], proxies[1]);
+
+          proxyPool.clearUpdateInterval();
+          proxies[0].should.hasOwnProperty('__urlsIntervalTimer__', -1);
         });
     })
   });

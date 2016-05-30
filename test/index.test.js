@@ -40,15 +40,14 @@ describe('index.js', function() {
 
       return gather
         .proxyPool
-        .getProxy()
+        .getProxy({
+          urls: ['http://proxy.xinshangshangxin.com/api/v1/combine']
+        })
         .then(function(proxy) {
-          should.exist(proxy.updateTimer);
-          proxy.updateTimer.should.have.property('_idleTimeout', 60000);
+          should.exist(proxy.__urlsIntervalTimer__);
+          proxy.__urlsIntervalTimer__.should.have.property('_idleTimeout', 5 * 60 * 1000);
           gather.proxyPool.clearUpdateInterval();
-          proxy.updateTimer.should.have.property('_idleTimeout', -1);
-
-          proxy.setUpdateInterval();
-          proxy.updateTimer.should.have.property('_idleTimeout', 60000);
+          proxy.__urlsIntervalTimer__.should.have.property('_idleTimeout', -1);
         });
     })
   });

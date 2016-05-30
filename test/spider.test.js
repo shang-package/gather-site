@@ -7,7 +7,7 @@ var data = require('./data.js');
 var Spider = require('../lib/spider.js');
 
 
-describe('New Spider', function() {
+describe('spider.js', function() {
   before(function(done) {
     done();
   });
@@ -16,7 +16,7 @@ describe('New Spider', function() {
     done();
   });
 
-  describe('When call checkRule  With no requestConfig', function() {
+  describe('When call checkRule With no requestConfig', function() {
     it('should be false', function(done) {
       (new Spider().checkRule()).should.be.false;
       done();

@@ -6,7 +6,7 @@ var proxyConfigs = require('./data.js').proxyConfigs;
 var Proxy = require('../lib/proxy.js');
 
 
-describe('new Proxy', function() {
+describe('proxy.js', function() {
   before(function(done) {
     done();
   });
@@ -21,45 +21,29 @@ describe('new Proxy', function() {
       return proxy
         .init()
         .then(function() {
-          should.exist(proxy.updateTimer);
-          proxy.urls.length.should.equal(2);
-          proxy.typeProxies.length.should.equal(2);
+          should.exist(proxy.__urlsIntervalTimer__);
+          proxy.proxies.length.should.above(1);
+          console.info('proxy.proxies.length: ', proxy.proxies.length);
         });
     });
   });
 
-  describe('When new Proxy with config false then call getOne ', function() {
+  describe('When new Proxy with config false then call get ', function() {
     it('should have some data', function() {
       var proxy = new Proxy(false);
-      should.equal(proxy.getOne(), null);
+      proxy.proxies.length.should.equal(1);
+      should.equal(proxy.get(), null);
     });
   });
 
-  describe('When call getOne type = 1', function() {
+  describe('When call get 1', function() {
     it('should have some data', function() {
       var proxy = new Proxy(proxyConfigs[0]);
       return proxy
         .init()
         .then(function() {
-          should.notEqual(proxy.getOne(1), null);
+          should.notEqual(proxy.get(1), null);
         });
-    });
-  });
-
-
-  describe('When call setRetryRange', function() {
-    it('should have some data', function(done) {
-      var proxy = new Proxy(proxyConfigs[0]);
-      proxy.setRetryRange([-1, 2.1]).should.eql([0, 0]);
-      done();
-    });
-  });
-
-  describe('When call setRetryRange', function() {
-    it('should have some data', function(done) {
-      var proxy = new Proxy();
-      proxy.setRetryRange().should.eql([0, proxy.urls.length - 1]);
-      done();
     });
   });
 
@@ -71,6 +55,7 @@ describe('new Proxy', function() {
       should.equal(Proxy.getName(false), '__no_proxy__');
       should.equal(new Proxy({}).getName(), '__default__');
       should.notEqual(new Proxy(proxyConfigs[0]).getName(), '__default__');
+      new Proxy(proxyConfigs[0]).getName().should.equal(new Proxy(proxyConfigs[0]).getName());
       done();
     });
   });
