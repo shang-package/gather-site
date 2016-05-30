@@ -23,7 +23,7 @@ describe('proxy.js', function() {
         .then(function() {
           should.exist(proxy.__urlsIntervalTimer__);
           proxy.proxies.length.should.above(1);
-          console.info('proxy.proxies.length: ', proxy.proxies.length);
+          console.info('proxy.proxies ', proxy.proxies);
         });
     });
   });
