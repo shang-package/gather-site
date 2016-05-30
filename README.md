@@ -14,6 +14,8 @@
 // 额外参数：
 {
   encodingCheck: '是否检测gbk并转换',
+  beforeProxies: '数组，默认为[null]， 表示在在获取url的proxy列表之前添加',
+  afterProxies: '数组，表示在在获取url的proxy列表之后添加',
   retryDelay: '当proxyConfig!==false时， 存在重试间隔, 默认为0',
   retryStrategy: '当proxyConfig!==false时， 存在重试机制, 默认为retryStrategy.all，也可以自定义函数，参数为request的返回结果中的(err, response)'
 }
