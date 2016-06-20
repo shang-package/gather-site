@@ -25,7 +25,13 @@ function gather(requestConfig, parseConfig, proxyConfig) {
 }
 
 module.exports = gather;
+
+// 代理相关
 module.exports.proxyPool = proxyPool;
+module.exports.getProxy = proxyPool.getProxy;
+module.exports.clearProxyPool = proxyPool.clearAll;
+
+// 重试相关
 module.exports.retryStrategy = retryStrategy;
 
 // 设置默认

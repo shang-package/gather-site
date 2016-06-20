@@ -14,8 +14,6 @@
 // 额外参数：
 {
   encodingCheck: '是否检测gbk并转换',
-  beforeProxies: '数组，默认为[null]， 表示在在获取url的proxy列表之前添加',
-  afterProxies: '数组，表示在在获取url的proxy列表之后添加',
   retryDelay: '当proxyConfig!==false时， 存在重试间隔, 默认为0',
   retryStrategy: '当proxyConfig!==false时， 存在重试机制, 默认为retryStrategy.all，也可以自定义函数，参数为request的返回结果中的(err, response)',
   logRetryFun: '当proxyConfig!==false时， 存在重试机制,重试时输出上次失败的信息，参数为(err, nu, url)'
@@ -60,7 +58,7 @@
 ## 代理规则(proxyConfig)
 ```js
 proxyConfig === false // 不设置代理
-proxyConfig === undefined || proxyConfig === null; // 默认无代理, 失败后再次请求, 最后抛出失败
+proxyConfig === undefined || proxyConfig === null; // 默认失败后重试一次
 
 // proxyConfig
 {
@@ -68,17 +66,20 @@ proxyConfig === undefined || proxyConfig === null; // 默认无代理, 失败后
   urls: [
     'full url get a json proxy list'  // 一个url, 返回内容为 [{url: 'proxy_url_1'}, {url: 'proxy_url_2'}]
   ],
-  time: 5 * 60 * 1000              // urls 轮询更新 间隔
+  beforeProxies: '数组，默认为[null]， 表示在在获取url的proxy列表之前添加一个不使用代理获取资源',
+  afterProxies: '数组，表示在在获取url的proxy列表之后添加',
+  time: 5 * 60 * 1000,              // urls 轮询更新 间隔
+  proxies: 'proxy_url数组, 一旦设置, 上面其它设置均无效',
+  name: '这个代理别名,String,只有在proxies设置的时候必须设置,用于区分这个代理的是否已经存在'
 }
 ```
 
-## gather.proxyPool.getProxy(proxyConfig, noPromise)
+## gather.getProxy(proxyConfig, noPromise)
 
 ```js
-var proxy = gather.proxyPool.getProxy(false) // 返回一个无代理的proxy
+var proxy = gather.getProxy(false) // 返回一个无代理的proxy
 
-
-gather.proxyPool
+gather
   .getProxy(proxyConfig)
   .then(function(proxy){
     // 返回一个proxyConfig的proxy
@@ -86,6 +87,8 @@ gather.proxyPool
     proxy.get(index); // 获取index位置的proxyUrl
   });
 ```
+
+## gather.clearProxyPool() 删除代理池中的所有代理
 
 ## 例子
 ```js

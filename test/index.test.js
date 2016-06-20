@@ -27,7 +27,6 @@ describe('index.js', function() {
 
   describe('When call gather with json', function() {
     it('should have some data', function() {
-
       return gather(data.requestConfigs[0])
         .then(function(data) {
           data.length.should.above(0);
@@ -46,7 +45,7 @@ describe('index.js', function() {
         .then(function(proxy) {
           should.exist(proxy.__urlsIntervalTimer__);
           proxy.__urlsIntervalTimer__.should.have.property('_idleTimeout', 5 * 60 * 1000);
-          gather.proxyPool.clearUpdateInterval();
+          gather.proxyPool.clearProxyPool();
           proxy.__urlsIntervalTimer__.should.have.property('_idleTimeout', -1);
         });
     })
@@ -55,8 +54,9 @@ describe('index.js', function() {
   describe('When call defaults', function() {
     it('should success have defaults config', function() {
       var myGather = gather.defaults({
-        url: 'http://proxy.xinshangshangxin.com/api/v1/proxy?type=nn&perPage=3',
-        json: true
+        url: 'http://gather.proxy.xinshangshangxin.com/api/v1/proxy?type=nn&perPage=3',
+        json: true,
+        followRedirect: true
       });
 
       return myGather()

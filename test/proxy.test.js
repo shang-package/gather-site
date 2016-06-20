@@ -54,6 +54,8 @@ describe('proxy.js', function() {
       should.equal(new Proxy(false).getName(), '__no_proxy__');
       should.equal(Proxy.getName(false), '__no_proxy__');
       should.equal(new Proxy({}).getName(), '__default__');
+      should.equal(Proxy.getName({name: '1231231'}), '1231231');
+      should.equal(new Proxy({name: '1231231'}).getName(), '1231231');
       should.notEqual(new Proxy(proxyConfigs[0]).getName(), '__default__');
       new Proxy(proxyConfigs[0]).getName().should.equal(new Proxy(proxyConfigs[0]).getName());
       done();
