@@ -3,11 +3,11 @@
 var retryStrategy = require('../lib/retryStrategy.js');
 
 var proxyConfigs = [{
-  urls: ['http://gather.proxy.xinshangshangxin.com/api/v1/combine'],
+  urls: ['http://gather-proxy.leanapp.cn/api/v1/combine'],
 }];
 
 var requestConfigs = [{
-  url: 'http://gather.proxy.xinshangshangxin.com/api/v1/proxy?type=nn&perPage=3',
+  url: 'http://gather-proxy.leanapp.cn/api/v1/proxy?type=nn&perPage=3',
   json: true,
   retryStrategy: retryStrategy.HTTPOrNetworkError,
   proxy: null,

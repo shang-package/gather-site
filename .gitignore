@@ -47,5 +47,6 @@ Temporary Items
 
 # user
 .idea
+yarn-error.log
 coverage
 

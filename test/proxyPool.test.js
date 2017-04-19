@@ -25,7 +25,7 @@ describe('proxyPool get proxy', function() {
         .then(function(proxies) {
           should.equal(proxies[0], proxies[1]);
 
-          proxyPool.clearProxyPool();
+          proxyPool.clearAll();
           proxies[0].should.hasOwnProperty('__urlsIntervalTimer__', -1);
         });
     })

@@ -40,12 +40,12 @@ describe('index.js', function() {
       return gather
         .proxyPool
         .getProxy({
-          urls: ['http://proxy.xinshangshangxin.com/api/v1/combine']
+          urls: ['http://gather-proxy.leanapp.cn/api/v1/combine']
         })
         .then(function(proxy) {
           should.exist(proxy.__urlsIntervalTimer__);
           proxy.__urlsIntervalTimer__.should.have.property('_idleTimeout', 5 * 60 * 1000);
-          gather.proxyPool.clearProxyPool();
+          gather.proxyPool.clearAll();
           proxy.__urlsIntervalTimer__.should.have.property('_idleTimeout', -1);
         });
     })
@@ -54,7 +54,7 @@ describe('index.js', function() {
   describe('When call defaults', function() {
     it('should success have defaults config', function() {
       var myGather = gather.defaults({
-        url: 'http://gather.proxy.xinshangshangxin.com/api/v1/proxy?type=nn&perPage=3',
+        url: 'http://gather-proxy.leanapp.cn/api/v1/proxy?type=nn&perPage=3',
         json: true,
         followRedirect: true
       });
