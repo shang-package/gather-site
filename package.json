@@ -1,6 +1,6 @@
 {
   "name": "gather-site",
-  "version": "0.4.4",
+  "version": "0.4.5",
   "description": "个人垂直采集器",
   "main": "index.js",
   "scripts": {
@@ -14,7 +14,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://git.coding.net/xinshangshangxin/gather-site.git"
+    "url": "https://github.com/shang-package/gather-site"
   },
   "engines": {
     "node": ">=4.0.0"
@@ -27,6 +27,7 @@
     "request": "^2.69.0"
   },
   "devDependencies": {
+    "chai": "^3.5.0",
     "gulp": "^3.9.1",
     "gulp-jshint": "^2.0.0",
     "gulp-load-plugins": "^1.2.0",
