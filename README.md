@@ -88,7 +88,7 @@ gather
   });
 ```
 
-## gather.clearProxyPool() 删除代理池中的所有代理
+## gather.clearAll() 删除代理池中的所有代理
 
 ## 例子
 ```js
